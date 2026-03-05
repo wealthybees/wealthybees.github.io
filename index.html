@@ -308,6 +308,101 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 .auth-field-err{font-size:11.5px;color:#E05252;margin-top:5px;min-height:0;display:none;font-weight:500;letter-spacing:.01em;}
 .auth-field-err.show{display:block;}
 .finput.input-err{border-color:#E05252 !important;background:rgba(224,82,82,.06) !important;}
+
+/* ── Monthly Trend Chart ── */
+.trend-switch{display:flex;gap:0;background:var(--mid);border-radius:8px;padding:3px;width:fit-content;margin-left:auto}
+.trend-btn{padding:5px 14px;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--lt);transition:all .18s}
+.trend-btn.active{background:var(--honey);color:#000;box-shadow:0 2px 8px rgba(245,166,35,.3)}
+.chart-wrap{overflow-x:auto;padding-bottom:4px}
+.trend-svg{display:block;overflow:visible}
+/* ── Asset Allocation Pie ── */
+
+/* ── Allocation Page ── */
+.alloc-class-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.alloc-class-hdr{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;transition:background .15s;}
+.alloc-class-hdr:hover{background:rgba(255,255,255,.03)}
+.alloc-class-ico{font-size:22px;flex-shrink:0}
+.alloc-class-name{font-size:14px;font-weight:700;flex:1}
+.alloc-class-pct{font-size:20px;font-weight:800;font-family:'Playfair Display',serif}
+.alloc-class-val{font-size:12px;color:var(--lt);margin-top:1px}
+.alloc-class-chevron{font-size:12px;color:var(--lt);transition:transform .25s}
+.alloc-class-chevron.open{transform:rotate(180deg)}
+.alloc-class-body{border-top:1px solid var(--border);display:none}
+.alloc-class-body.open{display:block}
+.alloc-hold-row{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.04)}
+.alloc-hold-row:last-child{border-bottom:none}
+.alloc-hold-name{font-size:13px;flex:1;font-weight:500}
+.alloc-hold-cat{font-size:11px;color:var(--lt)}
+.alloc-hold-val{font-size:13px;font-weight:700;text-align:right}
+.alloc-hold-pct{font-size:11px;color:var(--lt);text-align:right}
+/* Target bars */
+.tbar-row{margin-bottom:14px}
+.tbar-labels{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.tbar-name{font-weight:600}
+.tbar-track{background:var(--mid);border-radius:6px;height:8px;position:relative;overflow:hidden}
+.tbar-actual{height:100%;border-radius:6px;transition:width .5s}
+.tbar-target-line{position:absolute;top:-2px;width:2px;height:12px;border-radius:1px;background:rgba(255,255,255,.5);transform:translateX(-50%)}
+/* Alloc legend */
+.alloc-leg-item{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.alloc-leg-item:last-child{border-bottom:none}
+.alloc-leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.alloc-leg-name{font-size:13px;flex:1;font-weight:500}
+.alloc-leg-pct{font-size:14px;font-weight:800}
+.alloc-leg-val{font-size:11.5px;color:var(--lt);text-align:right;min-width:60px}
+/* Target input rows */
+.target-inp-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.target-inp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.target-inp-label{font-size:13px;font-weight:500;flex:1}
+.target-inp-field{width:64px;padding:6px 8px;border-radius:7px;border:1px solid var(--border);background:var(--mid);color:var(--text);font-size:13px;font-weight:600;text-align:center}
+
+.alloc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center;margin-top:4px}
+.alloc-legend{display:flex;flex-direction:column;gap:8px}
+.alloc-item{display:flex;align-items:center;gap:9px;font-size:12.5px}
+.alloc-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.alloc-name{flex:1;color:var(--text);font-weight:500}
+.alloc-pct{font-weight:700;font-size:13px}
+.alloc-val{color:var(--lt);font-size:11px}
+@media(max-width:600px){
+/* ── Allocation Page ── */
+.alloc-class-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.alloc-class-hdr{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;transition:background .15s;}
+.alloc-class-hdr:hover{background:rgba(255,255,255,.03)}
+.alloc-class-ico{font-size:22px;flex-shrink:0}
+.alloc-class-name{font-size:14px;font-weight:700;flex:1}
+.alloc-class-pct{font-size:20px;font-weight:800;font-family:'Playfair Display',serif}
+.alloc-class-val{font-size:12px;color:var(--lt);margin-top:1px}
+.alloc-class-chevron{font-size:12px;color:var(--lt);transition:transform .25s}
+.alloc-class-chevron.open{transform:rotate(180deg)}
+.alloc-class-body{border-top:1px solid var(--border);display:none}
+.alloc-class-body.open{display:block}
+.alloc-hold-row{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.04)}
+.alloc-hold-row:last-child{border-bottom:none}
+.alloc-hold-name{font-size:13px;flex:1;font-weight:500}
+.alloc-hold-cat{font-size:11px;color:var(--lt)}
+.alloc-hold-val{font-size:13px;font-weight:700;text-align:right}
+.alloc-hold-pct{font-size:11px;color:var(--lt);text-align:right}
+/* Target bars */
+.tbar-row{margin-bottom:14px}
+.tbar-labels{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.tbar-name{font-weight:600}
+.tbar-track{background:var(--mid);border-radius:6px;height:8px;position:relative;overflow:hidden}
+.tbar-actual{height:100%;border-radius:6px;transition:width .5s}
+.tbar-target-line{position:absolute;top:-2px;width:2px;height:12px;border-radius:1px;background:rgba(255,255,255,.5);transform:translateX(-50%)}
+/* Alloc legend */
+.alloc-leg-item{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.alloc-leg-item:last-child{border-bottom:none}
+.alloc-leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.alloc-leg-name{font-size:13px;flex:1;font-weight:500}
+.alloc-leg-pct{font-size:14px;font-weight:800}
+.alloc-leg-val{font-size:11.5px;color:var(--lt);text-align:right;min-width:60px}
+/* Target input rows */
+.target-inp-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.target-inp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.target-inp-label{font-size:13px;font-weight:500;flex:1}
+.target-inp-field{width:64px;padding:6px 8px;border-radius:7px;border:1px solid var(--border);background:var(--mid);color:var(--text);font-size:13px;font-weight:600;text-align:center}
+
+.alloc-grid{grid-template-columns:1fr}.alloc-legend{flex-direction:row;flex-wrap:wrap;gap:10px}}
+
 .forgot-link{text-align:right;margin-top:-4px;margin-bottom:8px;}
 .forgot-link a{font-size:12px;color:var(--honey);cursor:pointer;}
 .forgot-link a:hover{text-decoration:underline;}
@@ -855,6 +950,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="ni" data-page="budgets"><span class="ni-ico">🎯</span>Budgets</div>
     <div class="sb-label" style="margin-top:12px">Grow</div>
     <div class="ni" data-page="networth"><span class="ni-ico">📈</span>Net Worth</div>
+    <div class="ni" data-page="allocation"><span class="ni-ico">🥧</span>Allocation</div>
     <div class="ni" data-page="goals"><span class="ni-ico">🍯</span>Goals</div>
     <div class="ni" data-page="essentials"><span class="ni-ico">🛡️</span>Essentials</div>
     <div class="sb-label" style="margin-top:12px">Calculator</div>
@@ -899,6 +995,27 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
       <div class="card-header"><div class="card-title">Spending Breakdown</div></div>
       <div class="donut-flex" id="dash-donut"></div>
     </div>
+  </div>
+  <!-- Monthly Trend Chart -->
+  <div class="card mb16">
+    <div class="card-header">
+      <div class="card-title">Monthly Overview</div>
+      <div class="trend-switch">
+        <button class="trend-btn active" id="trend-btn-line" onclick="switchTrendChart('line')">📈 Line</button>
+        <button class="trend-btn" id="trend-btn-bar" onclick="switchTrendChart('bar')">📊 Bar</button>
+      </div>
+    </div>
+    <div class="chart-wrap" id="trend-chart-wrap"></div>
+    <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;font-size:11.5px">
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#4CAF7D"></div>Income</div>
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#E05252"></div>Expenses</div>
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#5B9BD5"></div>Investments</div>
+    </div>
+  </div>
+  <!-- Asset Allocation -->
+  <div class="card mb16">
+    <div class="card-header"><div class="card-title">Assets Allocation</div></div>
+    <div id="dash-alloc-wrap"></div>
   </div>
   <div class="g3">
     <div class="card">
@@ -1031,6 +1148,56 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     <div class="asset-cat-grid" id="goals-cat-grid"></div>
   </div>
   <div id="goals-list"></div>
+</div>
+
+
+<!-- ═══ ASSET ALLOCATION PAGE ═══ -->
+<div class="page" id="page-allocation">
+  <!-- KPI Row -->
+  <div class="kpi-row" id="alloc-kpi-row">
+    <div class="kpi glow"><div class="kpi-lbl">Total Portfolio</div><div class="kpi-val" id="alloc-total">₹0</div><div class="kpi-badge up">All assets</div></div>
+    <div class="kpi"><div class="kpi-lbl">Equity</div><div class="kpi-val" id="alloc-equity-val">₹0</div><div class="kpi-badge nu" id="alloc-equity-pct">0%</div></div>
+    <div class="kpi"><div class="kpi-lbl">Debt</div><div class="kpi-val" id="alloc-debt-val">₹0</div><div class="kpi-badge nu" id="alloc-debt-pct">0%</div></div>
+    <div class="kpi"><div class="kpi-lbl">Others</div><div class="kpi-val" id="alloc-other-val">₹0</div><div class="kpi-badge nu" id="alloc-other-pct">0%</div></div>
+  </div>
+
+  <!-- Main grid: Donut + Target -->
+  <div class="g2 mb16" style="align-items:start">
+    <!-- Donut chart card -->
+    <div class="card">
+      <div class="card-header"><div class="card-title">📊 Allocation Overview</div></div>
+      <div id="alloc-donut-wrap" style="display:flex;justify-content:center;margin-bottom:16px"></div>
+      <div id="alloc-legend"></div>
+    </div>
+    <!-- Target allocation card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🎯 Target vs Actual</div>
+        <button class="btn btn-ghost btn-sm" onclick="openAllocTargetModal()">Edit Targets</button>
+      </div>
+      <div id="alloc-target-bars"></div>
+    </div>
+  </div>
+
+  <!-- Holdings by asset class -->
+  <div id="alloc-holdings"></div>
+</div>
+
+<!-- ALLOCATION TARGET MODAL -->
+<div class="overlay" id="alloc-target-modal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-title">🎯 Set Target Allocation <span class="modal-x" onclick="closeModal('alloc-target-modal')">×</span></div>
+    <div style="font-size:12px;color:var(--lt);margin-bottom:16px">Set your desired % for each asset class. Total must equal 100%.</div>
+    <div id="alloc-target-inputs"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+      <span id="alloc-target-sum-lbl" style="font-size:13px;font-weight:600">Total: 0%</span>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost btn-sm" onclick="resetTargetsToActual()" title="Set targets = current actual allocation">↺ Use Actual</button>
+        <button class="btn btn-ghost btn-sm" onclick="closeModal('alloc-target-modal')">Cancel</button>
+        <button class="btn btn-honey btn-sm" onclick="saveAllocTargets()">Save Targets</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ INFLATION CALCULATOR PAGE ═══ -->
@@ -2296,7 +2463,8 @@ const PAGE_TITLES = {
   networth:'Net Worth <span>Tracker</span>',essentials:'<span>Essentials</span>',
   investments:'Investments',bills:'Bill <span>Calendar</span>',settings:'Settings',
   inflation:'📊 Inflation <span>Calculator</span>',
-  futureplanner:'🔮 Future Goal <span>Planner</span>'
+  futureplanner:'🔮 Future Goal <span>Planner</span>',
+  allocation:'🥧 Asset <span>Allocation</span>'
 };
 function navigate(page) {
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
@@ -2325,6 +2493,9 @@ function renderPage(page) {
   else if(page==='essentials') renderEssentials();
   else if(page==='bills') renderCalendar();
   else if(page==='settings') renderSettings();
+  else if(page==='inflation') renderInflationPage();
+  else if(page==='futureplanner') renderFuturePlannerPage();
+  else if(page==='allocation') renderAllocation();
   setTimeout(animateBars, 80);
 }
 
@@ -2800,7 +2971,7 @@ function saveAssetEntry() {
   } else {
     assetEntries.push({id:nextId++,catKey,name,value,invested,notes,currency});
   }
-  save(); renderNetWorth(); renderDashboard();
+  save(); renderNetWorth(); renderDashboard(); if(document.getElementById("page-allocation")&&document.getElementById("page-allocation").classList.contains("active")) renderAllocation();
   closeModal('asset-cat-modal');
   showToast('✅ Asset saved!');
 }
@@ -2808,7 +2979,7 @@ function saveAssetEntry() {
 function deleteAssetEntry(id) {
   if(!confirm('Delete this asset?')) return;
   assetEntries = assetEntries.filter(a=>a.id!==id);
-  save(); renderNetWorth(); renderDashboard();
+  save(); renderNetWorth(); renderDashboard(); if(document.getElementById("page-allocation")&&document.getElementById("page-allocation").classList.contains("active")) renderAllocation();
   showToast('🗑 Asset deleted');
 }
 
@@ -2825,7 +2996,7 @@ function addLiability() {
   } else {
     liabs.push({id:nextId++,name,icon,cat,type:'liability',value});
   }
-  save(); renderNetWorth(); renderDashboard();
+  save(); renderNetWorth(); renderDashboard(); if(document.getElementById("page-allocation")&&document.getElementById("page-allocation").classList.contains("active")) renderAllocation();
   closeModal('asset-modal');
   showToast('✅ Liability saved!');
 }
@@ -2996,7 +3167,7 @@ function confirmImportData() {
     assetEntries.push({id:nextId++, catKey, name, value, invested:inv, notes, currency:currentCurrency});
     count++;
   });
-  save(); renderNetWorth(); renderDashboard();
+  save(); renderNetWorth(); renderDashboard(); if(document.getElementById("page-allocation")&&document.getElementById("page-allocation").classList.contains("active")) renderAllocation();
   closeModal('import-data-modal');
   showToast(`✅ Imported ${count} assets successfully!`);
 }
@@ -3079,7 +3250,7 @@ function confirmBrokerImport() {
     assetEntries.push({id:nextId++, catKey, name, value:val, invested:0, notes:`${BROKER_INFO[brokerParsedData.broker].name} · Qty: ${qty}`, currency:currentCurrency});
     count++;
   });
-  save(); renderNetWorth(); renderDashboard();
+  save(); renderNetWorth(); renderDashboard(); if(document.getElementById("page-allocation")&&document.getElementById("page-allocation").classList.contains("active")) renderAllocation();
   closeModal('broker-import-modal');
   showToast(`✅ Imported ${count} holdings from ${BROKER_INFO[brokerParsedData.broker].name}!`);
 }
@@ -3087,6 +3258,512 @@ function confirmBrokerImport() {
 // ══════════════════════════════════════════
 //  DASHBOARD
 // ══════════════════════════════════════════
+
+// ══════════════════════════════════════════
+//  MONTHLY TREND CHART (Line + Bar)
+// ══════════════════════════════════════════
+let _trendMode = 'line';
+function switchTrendChart(mode) {
+  _trendMode = mode;
+  document.getElementById('trend-btn-line').classList.toggle('active', mode==='line');
+  document.getElementById('trend-btn-bar').classList.toggle('active', mode==='bar');
+  renderTrendChart();
+}
+
+function getMonthlyData() {
+  // Investment category matcher
+  function isInvCat(cat) {
+    if(!cat) return false;
+    const c = cat.toLowerCase();
+    return c==='investment' || c.includes('invest') || c.includes('sip') ||
+      c.includes('mutual') || c.includes('stock') || c.includes('crypto') ||
+      c.includes('epf') || c.includes('ppf') || c.includes('nps') ||
+      c.includes('bond') || c.includes(' fd') || c==='fd' || c.includes(' rd') || c==='rd';
+  }
+
+  const months = [];
+  const now = new Date();
+  const nowY = now.getFullYear(), nowM = now.getMonth();
+  const totalAssets = assetEntries.reduce((s,a)=>s+a.value, 0);
+
+  for(let i=5; i>=0; i--) {
+    const d = new Date(nowY, nowM-i, 1);
+    const y = d.getFullYear(), m = d.getMonth();
+    const label = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m] + ' \'' + String(y).slice(2);
+    const isCurrentMonth = (y===nowY && m===nowM);
+
+    const monthTxns = txns.filter(t => {
+      const td = new Date(t.date);
+      return td.getFullYear()===y && td.getMonth()===m;
+    });
+
+    const inc = monthTxns.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+    const exp = monthTxns.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+
+    // Investment = expense txns tagged as investment categories
+    let inv = monthTxns.filter(t=>t.type==='expense' && isInvCat(t.cat)).reduce((s,t)=>s+t.amount,0);
+
+    // Also include logExp entries tagged as investment
+    inv += (logExp||[]).filter(e => {
+      const td = new Date(e.date);
+      return isInvCat(e.cat) && td.getFullYear()===y && td.getMonth()===m;
+    }).reduce((s,e)=>s+e.amount, 0);
+
+    // Current month fallback: if no investment txns logged, show total asset portfolio value
+    if(isCurrentMonth && inv===0 && totalAssets>0) {
+      inv = totalAssets;
+    }
+
+    months.push({ label, inc, exp, inv, isCurrentMonth });
+  }
+  return months;
+}
+
+function renderTrendChart() {
+  const wrap = document.getElementById('trend-chart-wrap');
+  if(!wrap) return;
+  const data = getMonthlyData();
+  const W = Math.max(wrap.clientWidth || 400, 340);
+  const H = 160;
+  const PAD = { top:20, right:16, bottom:36, left:52 };
+  const cW = W - PAD.left - PAD.right;
+  const cH = H - PAD.top - PAD.bottom;
+  const allVals = data.flatMap(d=>[d.inc, d.exp, d.inv]).filter(v=>v>0);
+  const maxVal = allVals.length ? Math.max(...allVals) : 1000;
+  const minVal = 0;
+  const range = maxVal - minVal || 1;
+  const n = data.length;
+  const COLORS = { inc:'#4CAF7D', exp:'#E05252', inv:'#5B9BD5' };
+
+  function xPos(i) { return PAD.left + (i/(n-1||1)) * cW; }
+  function yPos(v) { return PAD.top + cH - ((v-minVal)/range)*cH; }
+  function fmtAxis(v) {
+    if(v>=10000000) return (v/10000000).toFixed(1)+'Cr';
+    if(v>=100000)   return (v/100000).toFixed(1)+'L';
+    if(v>=1000)     return (v/1000).toFixed(0)+'K';
+    return v.toFixed(0);
+  }
+
+  let svg = `<svg class="trend-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
+
+  // Grid lines
+  const ticks = 4;
+  for(let i=0;i<=ticks;i++) {
+    const v = minVal + (range*i/ticks);
+    const y = yPos(v);
+    svg += `<line x1="${PAD.left}" y1="${y}" x2="${W-PAD.right}" y2="${y}" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`;
+    svg += `<text x="${PAD.left-5}" y="${y+4}" text-anchor="end" font-size="9" fill="#666">${fmtAxis(v)}</text>`;
+  }
+
+  if(_trendMode === 'bar') {
+    const BAR_W = Math.min(18, cW/n/4);
+    const series = [
+      { key:'inc', color:COLORS.inc, offset:-BAR_W },
+      { key:'exp', color:COLORS.exp, offset:0 },
+      { key:'inv', color:COLORS.inv, offset:BAR_W },
+    ];
+    series.forEach(({key, color, offset}) => {
+      data.forEach((d,i) => {
+        const v = d[key];
+        if(v <= 0) return;
+        const x = xPos(i) + offset - BAR_W/2;
+        const barH = ((v-minVal)/range)*cH;
+        const y = PAD.top + cH - barH;
+        svg += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${BAR_W}" height="${barH.toFixed(1)}" rx="3" fill="${color}" opacity="0.85"/>`;
+      });
+    });
+  } else {
+    // Line chart
+    const series = [
+      { key:'inc', color:COLORS.inc },
+      { key:'exp', color:COLORS.exp },
+      { key:'inv', color:COLORS.inv },
+    ];
+    series.forEach(({key, color}) => {
+      const pts = data.map((d,i) => [xPos(i), yPos(d[key])]);
+      // Area fill
+      let area = `M ${pts[0][0]},${PAD.top+cH}`;
+      pts.forEach(([x,y]) => area += ` L ${x},${y}`);
+      area += ` L ${pts[pts.length-1][0]},${PAD.top+cH} Z`;
+      svg += `<path d="${area}" fill="${color}" opacity="0.07"/>`;
+      // Line
+      let path = pts.map(([x,y],i) => (i===0?'M':'L')+`${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+      svg += `<path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+      // Dots
+      pts.forEach(([x,y],i) => {
+        if(data[i][key] > 0) svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="${color}" stroke="var(--bg)" stroke-width="1.5"/>`;
+      });
+    });
+  }
+
+  // X axis labels
+  data.forEach((d,i) => {
+    const x = xPos(i);
+    const isCurr = d.isCurrentMonth;
+    svg += `<text x="${x.toFixed(1)}" y="${H-6}" text-anchor="middle" font-size="9.5" fill="${isCurr?'#F5A623':'#666'}" font-weight="${isCurr?'700':'400'}">${d.label}</text>`;
+  });
+
+  svg += '</svg>';
+  wrap.innerHTML = svg;
+
+  // Note: if current month uses asset total as fallback, show hint
+  const note = document.getElementById('trend-inv-note');
+  if(note) {
+    const nowY = new Date().getFullYear(), nowM = new Date().getMonth();
+    const hasInvTxns = txns.some(t => {
+      const td = new Date(t.date);
+      return t.type==='expense' && td.getFullYear()===nowY && td.getMonth()===nowM &&
+        (t.cat||'').toLowerCase().includes('invest');
+    });
+    const last = data[data.length-1];
+    note.textContent = (last.inv > 0 && !hasInvTxns)
+      ? '(Current month shows Net Worth total — log transactions as "Investment" for monthly breakdown)'
+      : '';
+  }
+}
+
+// ══════════════════════════════════════════
+//  ASSET ALLOCATION PIE (finboom-style)
+// ══════════════════════════════════════════
+function renderDashAlloc() {
+  const wrap = document.getElementById('dash-alloc-wrap');
+  if(!wrap) return;
+  const classMap = getClassData();
+  const total = Object.values(classMap).reduce((s,c)=>s+c.value, 0);
+  if(!total) {
+    wrap.innerHTML = '<div style="padding:20px;text-align:center;color:var(--lt);font-size:13px">Add assets in Net Worth → see allocation here</div>';
+    return;
+  }
+  const active = ASSET_CLASS_ORDER.filter(cls => classMap[cls]?.value > 0);
+  const R=44, cx=59, cy=59;
+  let ang=-Math.PI/2, segs='';
+  active.forEach(cls => {
+    const meta=CLASS_META[cls], pV=classMap[cls].value/total;
+    const a2=ang+pV*2*Math.PI;
+    const x1=cx+R*Math.cos(ang), y1=cy+R*Math.sin(ang);
+    const x2=cx+R*Math.cos(a2),  y2=cy+R*Math.sin(a2);
+    segs+=`<path d="M${cx},${cy} L${x1.toFixed(2)},${y1.toFixed(2)} A${R},${R} 0 ${pV>.5?1:0},1 ${x2.toFixed(2)},${y2.toFixed(2)} Z" fill="${meta.color}" stroke="var(--bg)" stroke-width="2" opacity=".92"/>`;
+    ang=a2;
+  });
+  const svg=`<svg width="118" height="118" viewBox="0 0 118 118" style="flex-shrink:0">
+    ${segs}
+    <circle cx="${cx}" cy="${cy}" r="28" fill="var(--bg)"/>
+    <text x="${cx}" y="57" text-anchor="middle" font-size="9" fill="var(--lt)">Total</text>
+    <text x="${cx}" y="68" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text)">${fmtK(total)}</text>
+  </svg>`;
+  const legend=active.map((cls,i)=>{
+    const meta=CLASS_META[cls], p=(classMap[cls].value/total*100).toFixed(1);
+    return `<div class="dl-item"><div class="dl-bar" style="background:${meta.color};border-radius:3px"></div>
+      <div><div class="dl-name">${meta.icon} ${cls}</div><div class="dl-amt">${fmtK(classMap[cls].value)}</div></div>
+      <div class="dl-pct" style="color:${meta.color}">${p}%</div></div>`;
+  }).join('');
+  wrap.innerHTML = `<svg width="118" height="118" viewBox="0 0 118 118" style="flex-shrink:0">${segs}<circle cx="${cx}" cy="${cy}" r="28" fill="var(--bg)"/><text x="${cx}" y="57" text-anchor="middle" font-size="9" fill="var(--lt)">Total</text><text x="${cx}" y="68" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text)">${fmtK(total)}</text></svg><div class="dl">${legend}</div>`;
+}
+
+
+// ══════════════════════════════════════════
+//  ASSET ALLOCATION PAGE
+// ══════════════════════════════════════════
+
+// Map individual asset categories → asset CLASS
+const ASSET_CLASS_MAP = {
+  stocks:       { cls:'Equity',      label:'Equity',       icon:'📈', color:'#5B9BD5' },
+  mutual_funds: { cls:'Equity',      label:'Equity',       icon:'📈', color:'#5B9BD5' },
+  ulip:         { cls:'Equity',      label:'Equity',       icon:'📈', color:'#5B9BD5' },
+  intl:         { cls:'Equity',      label:'Equity',       icon:'📈', color:'#5B9BD5' },
+  fd_rd:        { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  bonds:        { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  debt_funds:   { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  epf_ppf:      { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  liquid_funds: { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  overnight:    { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  arbitrage:    { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  ssy:          { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  moneyback:    { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  endowment:    { cls:'Debt',        label:'Debt',         icon:'🏦', color:'#F5A623' },
+  gold:         { cls:'Gold',        label:'Gold',         icon:'🥇', color:'#E8BE5A' },
+  real_estate:  { cls:'Real Estate', label:'Real Estate',  icon:'🏘️', color:'#4CAF7D' },
+  crypto:       { cls:'Crypto',      label:'Crypto',       icon:'₿',  color:'#8B6BE0' },
+  cash:         { cls:'Cash',        label:'Cash',         icon:'💵', color:'#2DBDAA' },
+  commodities:  { cls:'Commodities', label:'Commodities',  icon:'🛢️', color:'#CD5FAA' },
+  other:        { cls:'Others',      label:'Others',       icon:'📦', color:'#7B8AB8' },
+};
+
+const ASSET_CLASS_ORDER = ['Equity','Debt','Gold','Real Estate','Crypto','Cash','Commodities','Others'];
+const CLASS_META = {
+  'Equity':      { icon:'📈', color:'#5B9BD5' },
+  'Debt':        { icon:'🏦', color:'#F5A623' },
+  'Gold':        { icon:'🥇', color:'#E8BE5A' },
+  'Real Estate': { icon:'🏘️', color:'#4CAF7D' },
+  'Crypto':      { icon:'₿',  color:'#8B6BE0' },
+  'Cash':        { icon:'💵', color:'#2DBDAA' },
+  'Commodities': { icon:'🛢️', color:'#CD5FAA' },
+  'Others':      { icon:'📦', color:'#7B8AB8' },
+};
+
+// Default targets (%)
+let allocTargets = { Equity:60, Debt:20, Gold:10, 'Real Estate':5, Crypto:3, Cash:2, Commodities:0, Others:0 };
+
+function loadAllocTargets() {
+  const saved = LS.get('allocTargets','');
+  if(saved) {
+    try { allocTargets = JSON.parse(saved); return; } catch(e) {}
+  }
+  // No saved targets: auto-compute from actual portfolio
+  autoSetTargetsFromActual();
+}
+function autoSetTargetsFromActual() {
+  const classMap = getClassData();
+  const total = Object.values(classMap).reduce((s,c)=>s+c.value, 0);
+  if(total > 0) {
+    // Set target = actual (rounded, ensure sum = 100)
+    const raw = {};
+    let sum = 0;
+    ASSET_CLASS_ORDER.forEach(cls => {
+      const pct = Math.round((classMap[cls]?.value || 0) / total * 100);
+      raw[cls] = pct;
+      sum += pct;
+    });
+    // Adjust rounding to hit exactly 100
+    const diff = 100 - sum;
+    if(diff !== 0) {
+      const biggestCls = ASSET_CLASS_ORDER.filter(c=>raw[c]>0).sort((a,b)=>raw[b]-raw[a])[0];
+      if(biggestCls) raw[biggestCls] += diff;
+    }
+    allocTargets = raw;
+  }
+  // else keep default
+}
+function saveAllocTargets() {
+  const inputs = document.querySelectorAll('#alloc-target-inputs .target-inp-field');
+  const newTargets = {};
+  let total = 0;
+  inputs.forEach(inp => {
+    const cls = inp.dataset.cls;
+    const v = Math.max(0, Math.min(100, parseFloat(inp.value)||0));
+    newTargets[cls] = v;
+    total += v;
+  });
+  if(Math.abs(total - 100) > 0.5) {
+    showToast('⚠️ Targets must add up to 100% (currently ' + total.toFixed(0) + '%)');
+    return;
+  }
+  allocTargets = newTargets;
+  LS.set('allocTargets', JSON.stringify(allocTargets));
+  closeModal('alloc-target-modal');
+  renderAllocation();
+  showToast('✅ Targets saved!');
+}
+
+function openAllocTargetModal() {
+  loadAllocTargets();
+  const wrap = document.getElementById('alloc-target-inputs');
+  if(!wrap) return;
+  wrap.innerHTML = ASSET_CLASS_ORDER.map(cls => {
+    const meta = CLASS_META[cls];
+    const val = allocTargets[cls] || 0;
+    return `<div class="target-inp-row">
+      <div class="target-inp-dot" style="background:${meta.color}"></div>
+      <span class="target-inp-label">${meta.icon} ${cls}</span>
+      <input class="target-inp-field" type="number" min="0" max="100" step="1" value="${val}"
+        data-cls="${cls}" oninput="updateAllocTargetSum()">
+      <span style="font-size:12px;color:var(--lt);width:16px">%</span>
+    </div>`;
+  }).join('');
+  updateAllocTargetSum();
+  openModal('alloc-target-modal');
+}
+
+function resetTargetsToActual() {
+  autoSetTargetsFromActual();
+  // Refresh inputs
+  const inputs = document.querySelectorAll('#alloc-target-inputs .target-inp-field');
+  inputs.forEach(inp => {
+    const cls = inp.dataset.cls;
+    inp.value = allocTargets[cls] || 0;
+  });
+  updateAllocTargetSum();
+  showToast('↺ Targets reset to your actual allocation');
+}
+function updateAllocTargetSum() {
+  const inputs = document.querySelectorAll('#alloc-target-inputs .target-inp-field');
+  let total = 0;
+  inputs.forEach(inp => total += parseFloat(inp.value)||0);
+  const lbl = document.getElementById('alloc-target-sum-lbl');
+  if(lbl) {
+    lbl.textContent = 'Total: ' + total.toFixed(0) + '%';
+    lbl.style.color = Math.abs(total-100) < 0.5 ? 'var(--green)' : total > 100 ? 'var(--red)' : 'var(--honey)';
+  }
+}
+
+function getClassData() {
+  const classMap = {};
+  ASSET_CLASS_ORDER.forEach(cls => { classMap[cls] = { value:0, holdings:[] }; });
+
+  assetEntries.forEach(a => {
+    const map = ASSET_CLASS_MAP[a.catKey] || ASSET_CLASS_MAP['other'];
+    const cls = map.cls;
+    if(!classMap[cls]) classMap[cls] = { value:0, holdings:[] };
+    classMap[cls].value += a.value;
+    const catDef = ASSET_CATEGORIES.find(c=>c.key===a.catKey);
+    classMap[cls].holdings.push({
+      name: a.name,
+      cat: catDef ? catDef.name : a.catKey,
+      icon: catDef ? catDef.icon : '📦',
+      value: a.value,
+      invested: a.invested || 0,
+    });
+  });
+  return classMap;
+}
+
+function renderAllocation() {
+  loadAllocTargets();
+  const classMap = getClassData();
+  const total = Object.values(classMap).reduce((s,c)=>s+c.value, 0);
+
+  // KPI cards
+  const equityVal = classMap['Equity']?.value || 0;
+  const debtVal   = classMap['Debt']?.value   || 0;
+  const otherVal  = total - equityVal - debtVal;
+  const pct = v => total > 0 ? (v/total*100).toFixed(1)+'%' : '0%';
+
+  const el = id => document.getElementById(id);
+  if(el('alloc-total'))      el('alloc-total').textContent      = fmtK(total);
+  if(el('alloc-equity-val')) el('alloc-equity-val').textContent = fmtK(equityVal);
+  if(el('alloc-equity-pct')) el('alloc-equity-pct').textContent = pct(equityVal);
+  if(el('alloc-debt-val'))   el('alloc-debt-val').textContent   = fmtK(debtVal);
+  if(el('alloc-debt-pct'))   el('alloc-debt-pct').textContent   = pct(debtVal);
+  if(el('alloc-other-val'))  el('alloc-other-val').textContent  = fmtK(otherVal);
+  if(el('alloc-other-pct'))  el('alloc-other-pct').textContent  = pct(otherVal);
+
+  if(!total) {
+    const empty = '<div style="text-align:center;padding:40px;color:var(--lt);font-size:13.5px">Add assets in Net Worth page to see allocation</div>';
+    ['alloc-donut-wrap','alloc-legend','alloc-target-bars','alloc-holdings'].forEach(id => { const e=el(id); if(e) e.innerHTML=empty; });
+    return;
+  }
+
+  // Build active classes
+  const active = ASSET_CLASS_ORDER.filter(cls => classMap[cls]?.value > 0);
+
+  // ── Donut SVG ──
+  const R=68, cx=80, cy=80, SIZE=160;
+  let ang = -Math.PI/2, slicesSvg = '';
+  active.forEach(cls => {
+    const meta = CLASS_META[cls];
+    const pctV = classMap[cls].value / total;
+    const a1=ang, a2=ang+pctV*2*Math.PI;
+    const x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
+    const x2=cx+R*Math.cos(a2), y2=cy+R*Math.sin(a2);
+    const lg = pctV>0.5?1:0;
+    slicesSvg += `<path d="M${cx},${cy} L${x1.toFixed(2)},${y1.toFixed(2)} A${R},${R} 0 ${lg},1 ${x2.toFixed(2)},${y2.toFixed(2)} Z"
+      fill="${meta.color}" stroke="var(--bg)" stroke-width="2.5" opacity="0.93"/>`;
+    ang = a2;
+  });
+  const donutSvg = `<svg width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}">
+    ${slicesSvg}
+    <circle cx="${cx}" cy="${cy}" r="42" fill="var(--bg)"/>
+    <text x="${cx}" y="${cy-7}" text-anchor="middle" font-size="9.5" fill="var(--lt)" font-family="DM Sans">Portfolio</text>
+    <text x="${cx}" y="${cy+9}" text-anchor="middle" font-size="13" font-weight="700" fill="var(--text)" font-family="DM Sans">${fmtK(total)}</text>
+  </svg>`;
+  if(el('alloc-donut-wrap')) el('alloc-donut-wrap').innerHTML = donutSvg;
+
+  // ── Legend ──
+  if(el('alloc-legend')) {
+    el('alloc-legend').innerHTML = active.map(cls => {
+      const meta = CLASS_META[cls];
+      const val  = classMap[cls].value;
+      const p    = (val/total*100).toFixed(1);
+      return `<div class="alloc-leg-item">
+        <div class="alloc-leg-dot" style="background:${meta.color}"></div>
+        <span class="alloc-leg-name">${meta.icon} ${cls}</span>
+        <span class="alloc-leg-pct" style="color:${meta.color}">${p}%</span>
+        <span class="alloc-leg-val">${fmtK(val)}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Target vs Actual bars ──
+  if(el('alloc-target-bars')) {
+    el('alloc-target-bars').innerHTML = active.map(cls => {
+      const meta    = CLASS_META[cls];
+      const actual  = classMap[cls].value/total*100;
+      const target  = allocTargets[cls] || 0;
+      const diff    = actual - target;
+      const diffTxt = diff >= 0 ? `+${diff.toFixed(1)}%` : `${diff.toFixed(1)}%`;
+      const diffCol = Math.abs(diff) < 2 ? 'var(--green)' : diff > 0 ? 'var(--honey)' : 'var(--red)';
+      return `<div class="tbar-row">
+        <div class="tbar-labels">
+          <span class="tbar-name" style="color:${meta.color}">${meta.icon} ${cls}</span>
+          <span style="display:flex;gap:10px;font-size:12px">
+            <span style="color:var(--lt)">Actual: <b style="color:var(--text)">${actual.toFixed(1)}%</b></span>
+            <span style="color:var(--lt)">Target: <b style="color:var(--text)">${target}%</b></span>
+            <span style="font-weight:700;color:${diffCol}">${diffTxt}</span>
+          </span>
+        </div>
+        <div class="tbar-track">
+          <div class="tbar-actual" style="width:${Math.min(actual,100).toFixed(1)}%;background:${meta.color}"></div>
+          ${target > 0 ? `<div class="tbar-target-line" style="left:${Math.min(target,100)}%"></div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Holdings by class ──
+  if(el('alloc-holdings')) {
+    el('alloc-holdings').innerHTML = active.map((cls,idx) => {
+      const meta     = CLASS_META[cls];
+      const val      = classMap[cls].value;
+      const p        = (val/total*100).toFixed(1);
+      const holdings = classMap[cls].holdings.sort((a,b)=>b.value-a.value);
+      const rows     = holdings.map(h => {
+        const hp   = (h.value/total*100).toFixed(1);
+        const gain = h.invested && h.invested>0 ? ((h.value-h.invested)/h.invested*100) : null;
+        const gainTxt = gain!==null ? `<span style="font-size:11px;font-weight:600;color:${gain>=0?'var(--green)':'var(--red)'}">${gain>=0?'+':''}${gain.toFixed(1)}%</span>` : '';
+        return `<div class="alloc-hold-row">
+          <div style="font-size:18px;flex-shrink:0">${h.icon}</div>
+          <div style="flex:1">
+            <div class="alloc-hold-name">${h.name}</div>
+            <div class="alloc-hold-cat">${h.cat} · ${hp}% of portfolio ${gainTxt}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="alloc-hold-val">${fmtK(h.value)}</div>
+            ${h.invested > 0 ? `<div class="alloc-hold-pct">Inv: ${fmtK(h.invested)}</div>` : ''}
+          </div>
+        </div>`;
+      }).join('');
+      return `<div class="alloc-class-card" id="alloc-cls-${idx}">
+        <div class="alloc-class-hdr" onclick="toggleAllocClass(${idx})">
+          <div class="alloc-class-ico">${meta.icon}</div>
+          <div style="flex:1">
+            <div class="alloc-class-name">${cls}</div>
+            <div class="alloc-class-val">${holdings.length} holding${holdings.length!==1?'s':''} · ${fmtK(val)}</div>
+          </div>
+          <div class="alloc-class-pct" style="color:${meta.color}">${p}%</div>
+          <div style="width:48px;margin-left:10px">
+            <div style="background:var(--mid);border-radius:4px;height:5px;overflow:hidden">
+              <div style="width:${Math.min(parseFloat(p),100)}%;height:100%;background:${meta.color};border-radius:4px"></div>
+            </div>
+          </div>
+          <span class="alloc-class-chevron" id="alloc-chev-${idx}">▼</span>
+        </div>
+        <div class="alloc-class-body" id="alloc-body-${idx}">${rows}</div>
+      </div>`;
+    }).join('');
+    // Auto-open first class
+    if(active.length > 0) setTimeout(()=>toggleAllocClass(0), 80);
+  }
+}
+
+function toggleAllocClass(idx) {
+  const body = document.getElementById('alloc-body-'+idx);
+  const chev = document.getElementById('alloc-chev-'+idx);
+  if(!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if(chev) chev.classList.toggle('open', !isOpen);
+}
+
 function renderDashboard() {
   const income = txns.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
   const spend  = txns.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
@@ -3122,6 +3799,10 @@ function renderDashboard() {
   const catSpend={};
   txns.filter(t=>t.type==='expense').forEach(t=>{catSpend[t.cat]=(catSpend[t.cat]||0)+t.amount;});
   renderDonut('dash-donut', catSpend);
+  // Monthly trend chart
+  setTimeout(()=>renderTrendChart(), 50);
+  // Asset allocation pie (class-based)
+  renderDashAlloc();
 }
 
 // ══════════════════════════════════════════
