@@ -127,7 +127,33 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
 ::-webkit-scrollbar-thumb{background:var(--mid2);border-radius:10px;}
 
 /* ── PAGES ── */
-.page{display:none;animation:fadeUp .28s ease both;}
+.page{display:none;}
+.page.active{display:block;animation:pageIn .28s cubic-bezier(.22,.68,0,1.2);}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+/* Modal transitions */
+.overlay.open .modal{animation:modalIn .25s cubic-bezier(.22,.68,0,1.15);}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+/* KPI cards hover */
+.kpi{transition:transform .18s,box-shadow .18s;}
+.kpi:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.25);}
+/* Button press */
+.btn{transition:transform .12s,opacity .12s,background .18s,box-shadow .18s;}
+.btn:active{transform:scale(.97);}
+/* Asset cat card */
+.asset-cat-card{transition:transform .18s,box-shadow .18s,border-color .18s;}
+.asset-cat-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.25);}
+/* Goal card */
+.goal-card{transition:box-shadow .2s;}
+.goal-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.3);}
+/* Nav items */
+.ni{transition:background .15s,color .15s,transform .12s;}
+.ni:active{transform:scale(.97);}
+/* Sidebar dropdown */
+.sb-dd{transition:opacity .18s,transform .18s;}
+/* Progress bars animate */
+.pfill{transition:width .6s cubic-bezier(.22,.68,0,1.1);}
+/* Alloc class body */
+.alloc-class-body{transition:max-height .28s ease;}
 .page.active{display:block;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
@@ -997,19 +1023,32 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
     </div>
   </div>
   <!-- Monthly Trend Chart -->
-  <div class="card mb16">
-    <div class="card-header">
-      <div class="card-title">Monthly Overview</div>
-      <div class="trend-switch">
-        <button class="trend-btn active" id="trend-btn-line" onclick="switchTrendChart('line')">📈 Line</button>
-        <button class="trend-btn" id="trend-btn-bar" onclick="switchTrendChart('bar')">📊 Bar</button>
+  <div class="card mb16" id="trend-card" style="position:relative">
+    <div class="card-header" style="flex-wrap:wrap;gap:10px">
+      <div>
+        <div class="card-title">Monthly Overview</div>
+        <div id="trend-summary" style="display:flex;gap:14px;margin-top:6px;flex-wrap:wrap"></div>
+      </div>
+      <div class="trend-switch" style="flex-shrink:0">
+        <button class="trend-btn active" id="trend-btn-line" onclick="switchTrendChart('line')">Line</button>
+        <button class="trend-btn" id="trend-btn-bar" onclick="switchTrendChart('bar')">Bar</button>
       </div>
     </div>
-    <div class="chart-wrap" id="trend-chart-wrap"></div>
-    <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;font-size:11.5px">
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#4CAF7D"></div>Income</div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#E05252"></div>Expenses</div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#5B9BD5"></div>Investments</div>
+    <div class="chart-wrap" id="trend-chart-wrap" style="position:relative"></div>
+    <div id="trend-tooltip" style="display:none;position:absolute;background:var(--charcoal);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:12px;pointer-events:none;z-index:100;min-width:140px;box-shadow:0 8px 24px rgba(0,0,0,.4)"></div>
+    <div style="display:flex;gap:20px;margin-top:12px;flex-wrap:wrap;font-size:12px;align-items:center">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:20px;height:3px;border-radius:2px;background:#4CAF7D"></div>
+        <span style="color:var(--lt)">Income</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:20px;height:3px;border-radius:2px;background:#E05252"></div>
+        <span style="color:var(--lt)">Expenses</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:20px;height:3px;border-radius:2px;background:#5B9BD5;opacity:.7"></div>
+        <span style="color:var(--lt)">Net Savings</span>
+      </div>
     </div>
   </div>
   <!-- Asset Allocation -->
@@ -1579,6 +1618,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;dis
   <div class="modal">
     <div class="modal-title">🍯 <span id="goal-modal-title-text">New Goal</span> <span class="modal-x" onclick="closeModal('goal-modal')">×</span></div>
     <input type="hidden" id="edit-goal-id" value="">
+    <input type="hidden" id="g-category" value="other">
+    <div id="goal-cat-display" style="display:flex;align-items:center;gap:8px;background:var(--mid);border-radius:10px;padding:9px 13px;margin-bottom:12px;font-size:13px;font-weight:600">
+      <span id="goal-cat-icon" style="font-size:18px">🍯</span>
+      <span id="goal-cat-name">Other</span>
+    </div>
     <div class="frow">
       <div class="fgroup"><div class="flabel">Goal Name</div><input class="finput" id="g-name" placeholder="e.g. Vacation Fund"></div>
       <div class="fgroup"><div class="flabel">Icon</div><input class="finput" id="g-icon" placeholder="🏖️" maxlength="2"></div>
@@ -2509,8 +2553,14 @@ function openTxnModal() {
   document.getElementById('f-cat').innerHTML = buildCatOptions('expense');
   openModal('txn-modal');
 }
-function openGoalModal(id) {
+function openGoalModal(id, catKey) {
   document.getElementById('edit-goal-id').value = id || '';
+  const setCatDisplay = (key) => {
+    const cat = GOAL_CATEGORIES.find(c=>c.key===key) || GOAL_CATEGORIES[GOAL_CATEGORIES.length-1];
+    document.getElementById('g-category').value = cat.key;
+    document.getElementById('goal-cat-icon').textContent = cat.icon;
+    document.getElementById('goal-cat-name').textContent = cat.name;
+  };
   if(id) {
     const g = goals.find(g=>g.id===id);
     if(g) {
@@ -2521,12 +2571,19 @@ function openGoalModal(id) {
       document.getElementById('g-monthly').value = g.monthly;
       document.getElementById('g-deadline').value = g.deadline || '';
       document.getElementById('goal-modal-title-text').textContent = 'Edit Goal';
+      setCatDisplay(g.category || 'other');
     }
   } else {
-    document.getElementById('g-name').value=''; document.getElementById('g-icon').value='🎯';
-    document.getElementById('g-target').value=''; document.getElementById('g-current').value='0';
-    document.getElementById('g-monthly').value=''; document.getElementById('g-deadline').value='2027-01-01';
-    document.getElementById('goal-modal-title-text').textContent = 'New Goal';
+    const resolvedCat = catKey || 'other';
+    const cat = GOAL_CATEGORIES.find(c=>c.key===resolvedCat) || GOAL_CATEGORIES[GOAL_CATEGORIES.length-1];
+    document.getElementById('g-name').value = '';
+    document.getElementById('g-icon').value = cat.icon;
+    document.getElementById('g-target').value = '';
+    document.getElementById('g-current').value = '0';
+    document.getElementById('g-monthly').value = '';
+    document.getElementById('g-deadline').value = '2027-01-01';
+    document.getElementById('goal-modal-title-text').textContent = 'New ' + cat.name + ' Goal';
+    setCatDisplay(resolvedCat);
   }
   openModal('goal-modal');
 }
@@ -2766,7 +2823,7 @@ function renderGoals() {
       const catGoals = goals.filter(g => (g.category||'other') === cat.key);
       const catSaved = catGoals.reduce((s,g)=>s+g.current,0);
       const hasData = catGoals.length > 0;
-      return `<div class="asset-cat-card ${hasData?'has-data':''}" onclick="openGoalModal()">
+      return `<div class="asset-cat-card ${hasData?'has-data':''}" onclick="openGoalModal(${hasData?'null':'undefined'},'${cat.key}')">
         ${hasData?`<div class="asset-cat-count">${catGoals.length}</div>`:''}
         <div class="asset-cat-icon">${cat.icon}</div>
         <div class="asset-cat-name">${cat.name}</div>
@@ -3046,11 +3103,13 @@ function renderNetWorth() {
     const catTotal = entries.reduce((s,a)=>s+a.value,0);
     const rows = entries.map(a=>{
       const gain = a.invested ? ((a.value-a.invested)/a.invested*100).toFixed(1) : null;
+      const isLoss = a.invested && a.value < a.invested;
+      const gainColor = gain===null ? '' : parseFloat(gain)>=0 ? 'var(--green)' : 'var(--red)';
       return `<div class="asset-entry-row">
         <div style="font-size:18px;flex-shrink:0">${cat.icon}</div>
-        <div style="flex:1"><div class="asset-entry-name">${a.name}</div><div class="asset-entry-sub">${a.notes||cat.name}${gain?` · ${gain>=0?'+':''}${gain}%`:''}</div></div>
-        <div class="asset-entry-val">${fmtK(a.value)}</div>
-        ${a.invested?`<div style="font-size:11px;color:var(--lt);white-space:nowrap">Inv: ${fmtK(a.invested)}</div>`:''}
+        <div style="flex:1"><div class="asset-entry-name">${a.name}</div><div class="asset-entry-sub" style="${gain&&parseFloat(gain)<0?'color:var(--red)':''}">${a.notes||cat.name}${gain?` · <span style="color:${gainColor};font-weight:600">${gain>=0?'+':''}${gain}%</span>`:''}</div></div>
+        <div class="asset-entry-val" style="${isLoss?'color:var(--red)':''}">${fmtK(a.value)}</div>
+        ${a.invested?`<div style="font-size:11px;color:${isLoss?'var(--red)':'var(--lt)'};white-space:nowrap">Inv: ${fmtK(a.invested)}</div>`:''}
         <div class="asset-entry-btns">
           <button class="edit-btn" onclick="openAssetCatModal('${cat.key}',${a.id})" title="Edit">✏️</button>
           <button class="del-btn" onclick="deleteAssetEntry(${a.id})">🗑</button>
@@ -3271,20 +3330,9 @@ function switchTrendChart(mode) {
 }
 
 function getMonthlyData() {
-  // Investment category matcher
-  function isInvCat(cat) {
-    if(!cat) return false;
-    const c = cat.toLowerCase();
-    return c==='investment' || c.includes('invest') || c.includes('sip') ||
-      c.includes('mutual') || c.includes('stock') || c.includes('crypto') ||
-      c.includes('epf') || c.includes('ppf') || c.includes('nps') ||
-      c.includes('bond') || c.includes(' fd') || c==='fd' || c.includes(' rd') || c==='rd';
-  }
-
   const months = [];
   const now = new Date();
   const nowY = now.getFullYear(), nowM = now.getMonth();
-  const totalAssets = assetEntries.reduce((s,a)=>s+a.value, 0);
 
   for(let i=5; i>=0; i--) {
     const d = new Date(nowY, nowM-i, 1);
@@ -3297,24 +3345,10 @@ function getMonthlyData() {
       return td.getFullYear()===y && td.getMonth()===m;
     });
 
-    const inc = monthTxns.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-    const exp = monthTxns.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+    const inc = monthTxns.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount, 0);
+    const exp = monthTxns.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount, 0);
 
-    // Investment = expense txns tagged as investment categories
-    let inv = monthTxns.filter(t=>t.type==='expense' && isInvCat(t.cat)).reduce((s,t)=>s+t.amount,0);
-
-    // Also include logExp entries tagged as investment
-    inv += (logExp||[]).filter(e => {
-      const td = new Date(e.date);
-      return isInvCat(e.cat) && td.getFullYear()===y && td.getMonth()===m;
-    }).reduce((s,e)=>s+e.amount, 0);
-
-    // Current month fallback: if no investment txns logged, show total asset portfolio value
-    if(isCurrentMonth && inv===0 && totalAssets>0) {
-      inv = totalAssets;
-    }
-
-    months.push({ label, inc, exp, inv, isCurrentMonth });
+    months.push({ label, inc, exp, isCurrentMonth });
   }
   return months;
 }
@@ -3323,108 +3357,135 @@ function renderTrendChart() {
   const wrap = document.getElementById('trend-chart-wrap');
   if(!wrap) return;
   const data = getMonthlyData();
-  const W = Math.max(wrap.clientWidth || 400, 340);
-  const H = 160;
-  const PAD = { top:20, right:16, bottom:36, left:52 };
+  const W = Math.max(wrap.getBoundingClientRect().width || wrap.clientWidth || 440, 320);
+  const H = 210;
+  const PAD = { top:28, right:22, bottom:40, left:58 };
   const cW = W - PAD.left - PAD.right;
   const cH = H - PAD.top - PAD.bottom;
-  const allVals = data.flatMap(d=>[d.inc, d.exp, d.inv]).filter(v=>v>0);
-  const maxVal = allVals.length ? Math.max(...allVals) : 1000;
-  const minVal = 0;
-  const range = maxVal - minVal || 1;
   const n = data.length;
-  const COLORS = { inc:'#4CAF7D', exp:'#E05252', inv:'#5B9BD5' };
+  const baseY = PAD.top + cH;
 
-  function xPos(i) { return PAD.left + (i/(n-1||1)) * cW; }
-  function yPos(v) { return PAD.top + cH - ((v-minVal)/range)*cH; }
-  function fmtAxis(v) {
+  // Add net savings
+  const dat = data.map(d => ({ ...d, sav: Math.max(0, d.inc - d.exp) }));
+  const allVals = dat.flatMap(d=>[d.inc, d.exp]).filter(v=>v>0);
+  const maxVal = allVals.length ? Math.max(...allVals) * 1.1 : 10000;
+  const range = maxVal || 1;
+
+  const C = { inc:'#4CAF7D', exp:'#E05252', sav:'#5B9BD5' };
+
+  function xPos(i) { return PAD.left + (i/(n-1||1))*cW; }
+  function yPos(v) { return PAD.top + cH - (Math.min(v,maxVal)/range)*cH; }
+  function fmtA(v) {
     if(v>=10000000) return (v/10000000).toFixed(1)+'Cr';
     if(v>=100000)   return (v/100000).toFixed(1)+'L';
     if(v>=1000)     return (v/1000).toFixed(0)+'K';
-    return v.toFixed(0);
+    return Math.round(v);
+  }
+  function bezier(pts) {
+    if(pts.length<2) return '';
+    let d=`M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+    for(let i=1;i<pts.length;i++){
+      const cx=(pts[i-1][0]+pts[i][0])/2;
+      d+=` C${cx.toFixed(1)},${pts[i-1][1].toFixed(1)} ${cx.toFixed(1)},${pts[i][1].toFixed(1)} ${pts[i][0].toFixed(1)},${pts[i][1].toFixed(1)}`;
+    }
+    return d;
+  }
+  function bezierArea(pts) {
+    return bezier(pts)+` L${pts[pts.length-1][0].toFixed(1)},${baseY} L${pts[0][0].toFixed(1)},${baseY} Z`;
   }
 
-  let svg = `<svg class="trend-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
+  let svg=`<svg class="trend-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>
+    <linearGradient id="tg-inc" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${C.inc}" stop-opacity=".28"/><stop offset="100%" stop-color="${C.inc}" stop-opacity="0"/></linearGradient>
+    <linearGradient id="tg-exp" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${C.exp}" stop-opacity=".22"/><stop offset="100%" stop-color="${C.exp}" stop-opacity="0"/></linearGradient>
+    <linearGradient id="tg-sav" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${C.sav}" stop-opacity=".15"/><stop offset="100%" stop-color="${C.sav}" stop-opacity="0"/></linearGradient>
+    <filter id="ln-glow"><feGaussianBlur in="SourceGraphic" stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>`;
 
-  // Grid lines
-  const ticks = 4;
-  for(let i=0;i<=ticks;i++) {
-    const v = minVal + (range*i/ticks);
-    const y = yPos(v);
-    svg += `<line x1="${PAD.left}" y1="${y}" x2="${W-PAD.right}" y2="${y}" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`;
-    svg += `<text x="${PAD.left-5}" y="${y+4}" text-anchor="end" font-size="9" fill="#666">${fmtAxis(v)}</text>`;
+  // Grid
+  for(let i=0;i<=4;i++){
+    const v=range*i/4, y=yPos(v);
+    svg+=`<line x1="${PAD.left}" y1="${y.toFixed(1)}" x2="${W-PAD.right}" y2="${y.toFixed(1)}" stroke="${i===0?'rgba(255,255,255,.14)':'rgba(255,255,255,.05)'}" stroke-width="${i===0?1.5:1}"${i>0?' stroke-dasharray="4 5"':''}/>`;
+    svg+=`<text x="${(PAD.left-9).toFixed(1)}" y="${(y+3.5).toFixed(1)}" text-anchor="end" font-size="9.5" fill="#505050" font-family="DM Sans">${fmtA(v)}</text>`;
   }
 
-  if(_trendMode === 'bar') {
-    const BAR_W = Math.min(18, cW/n/4);
-    const series = [
-      { key:'inc', color:COLORS.inc, offset:-BAR_W },
-      { key:'exp', color:COLORS.exp, offset:0 },
-      { key:'inv', color:COLORS.inv, offset:BAR_W },
-    ];
-    series.forEach(({key, color, offset}) => {
-      data.forEach((d,i) => {
-        const v = d[key];
-        if(v <= 0) return;
-        const x = xPos(i) + offset - BAR_W/2;
-        const barH = ((v-minVal)/range)*cH;
-        const y = PAD.top + cH - barH;
-        svg += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${BAR_W}" height="${barH.toFixed(1)}" rx="3" fill="${color}" opacity="0.85"/>`;
+  if(_trendMode==='bar'){
+    const GW=cW/n, BW=Math.min(22,GW*0.27);
+    [
+      {key:'inc',color:C.inc,off:-(BW+2.5)},
+      {key:'exp',color:C.exp,off:0},
+      {key:'sav',color:C.sav,off:BW+2.5},
+    ].forEach(({key,color,off})=>{
+      dat.forEach((d,i)=>{
+        if(!d[key]) return;
+        const bH=(d[key]/range)*cH, bX=xPos(i)+off-BW/2, bY=baseY-bH;
+        const isC=d.isCurrentMonth;
+        svg+=`<rect x="${bX.toFixed(1)}" y="${bY.toFixed(1)}" width="${BW}" height="${bH.toFixed(1)}" rx="4" fill="${color}" opacity="${isC?1:.68}"/>`;
+        if(isC) svg+=`<text x="${(bX+BW/2).toFixed(1)}" y="${(bY-5).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="${color}" font-weight="700">${fmtA(d[key])}</text>`;
       });
     });
   } else {
-    // Line chart
-    const series = [
-      { key:'inc', color:COLORS.inc },
-      { key:'exp', color:COLORS.exp },
-      { key:'inv', color:COLORS.inv },
-    ];
-    series.forEach(({key, color}) => {
-      const pts = data.map((d,i) => [xPos(i), yPos(d[key])]);
-      // Area fill
-      let area = `M ${pts[0][0]},${PAD.top+cH}`;
-      pts.forEach(([x,y]) => area += ` L ${x},${y}`);
-      area += ` L ${pts[pts.length-1][0]},${PAD.top+cH} Z`;
-      svg += `<path d="${area}" fill="${color}" opacity="0.07"/>`;
-      // Line
-      let path = pts.map(([x,y],i) => (i===0?'M':'L')+`${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
-      svg += `<path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-      // Dots
-      pts.forEach(([x,y],i) => {
-        if(data[i][key] > 0) svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" fill="${color}" stroke="var(--bg)" stroke-width="1.5"/>`;
+    [
+      {key:'exp',gid:'tg-exp',color:C.exp,w:2,dash:''},
+      {key:'sav',gid:'tg-sav',color:C.sav,w:1.8,dash:'5 3.5'},
+      {key:'inc',gid:'tg-inc',color:C.inc,w:2.8,dash:''},
+    ].forEach(({key,gid,color,w,dash})=>{
+      const pts=dat.map((d,i)=>[xPos(i),yPos(d[key])]);
+      svg+=`<path d="${bezierArea(pts)}" fill="url(#${gid})"/>`;
+      svg+=`<path d="${bezier(pts)}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round"${dash?` stroke-dasharray="${dash}"`:''}${key==='inc'?' filter="url(#ln-glow)"':''}/>`;
+      if(key!=='sav') pts.forEach(([x,y],i)=>{
+        if(!dat[i][key]) return;
+        const isC=dat[i].isCurrentMonth;
+        svg+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isC?5.5:3.5}" fill="${isC?color:'var(--bg)'}" stroke="${color}" stroke-width="2"/>`;
+        if(isC) svg+=`<text x="${x.toFixed(1)}" y="${(y-12).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="${color}" font-weight="700">${fmtA(dat[i][key])}</text>`;
       });
     });
   }
 
-  // X axis labels
-  data.forEach((d,i) => {
-    const x = xPos(i);
-    const isCurr = d.isCurrentMonth;
-    svg += `<text x="${x.toFixed(1)}" y="${H-6}" text-anchor="middle" font-size="9.5" fill="${isCurr?'#F5A623':'#666'}" font-weight="${isCurr?'700':'400'}">${d.label}</text>`;
+  // X labels + hover columns
+  dat.forEach((d,i)=>{
+    const x=xPos(i), isC=d.isCurrentMonth;
+    if(isC) svg+=`<line x1="${x.toFixed(1)}" y1="${PAD.top}" x2="${x.toFixed(1)}" y2="${baseY}" stroke="rgba(245,166,35,.12)" stroke-width="1.5" stroke-dasharray="3 4"/>`;
+    svg+=`<text x="${x.toFixed(1)}" y="${(H-8).toFixed(1)}" text-anchor="middle" font-size="10" fill="${isC?'#F5A623':'#505050'}" font-weight="${isC?700:400}">${d.label}</text>`;
+    const colW=cW/n;
+    svg+=`<rect x="${(x-colW/2).toFixed(1)}" y="${PAD.top}" width="${colW.toFixed(1)}" height="${cH}" fill="transparent" style="cursor:default" onmouseenter="showTrendTip(event,${JSON.stringify({l:d.label,inc:d.inc,exp:d.exp,sav:d.inc-d.exp})})" onmouseleave="hideTrendTip()"/>`;
   });
 
-  svg += '</svg>';
-  wrap.innerHTML = svg;
+  svg+='</svg>';
+  wrap.innerHTML=svg;
 
-  // Note: if current month uses asset total as fallback, show hint
-  const note = document.getElementById('trend-inv-note');
-  if(note) {
-    const nowY = new Date().getFullYear(), nowM = new Date().getMonth();
-    const hasInvTxns = txns.some(t => {
-      const td = new Date(t.date);
-      return t.type==='expense' && td.getFullYear()===nowY && td.getMonth()===nowM &&
-        (t.cat||'').toLowerCase().includes('invest');
-    });
-    const last = data[data.length-1];
-    note.textContent = (last.inv > 0 && !hasInvTxns)
-      ? '(Current month shows Net Worth total — log transactions as "Investment" for monthly breakdown)'
-      : '';
+  // Summary stats
+  const cur=dat[dat.length-1], prev=dat[dat.length-2];
+  const sumEl=document.getElementById('trend-summary');
+  if(sumEl&&cur){
+    const chg=(a,b)=>b&&b>0?((a-b)/b*100).toFixed(0):null;
+    const savRate=cur.inc>0?Math.round((cur.inc-cur.exp)/cur.inc*100):0;
+    sumEl.innerHTML=[
+      {lbl:'Income',val:fmtK(cur.inc),color:C.inc,chg:chg(cur.inc,prev?.inc)},
+      {lbl:'Expenses',val:fmtK(cur.exp),color:C.exp,chg:chg(cur.exp,prev?.exp)},
+      {lbl:'Savings Rate',val:savRate+'%',color:savRate>=30?C.inc:savRate>=15?'#F5A623':C.exp,chg:null},
+    ].map(s=>`<div class="trend-stat"><span class="trend-stat-lbl">${s.lbl}</span><span class="trend-stat-val" style="color:${s.color}">${s.val}${s.chg!=null?`<span style="font-size:9.5px;margin-left:3px;opacity:.75">${s.chg>0?'▲'+s.chg:s.chg<0?'▼'+Math.abs(s.chg):'—'}%</span>`:''}</span></div>`).join('');
   }
 }
 
-// ══════════════════════════════════════════
-//  ASSET ALLOCATION PIE (finboom-style)
-// ══════════════════════════════════════════
+function showTrendTip(e,d){
+  const tip=document.getElementById('trend-tooltip'); if(!tip) return;
+  const sym=window.CURRENCIES&&window.CURRENCIES[currentCurrency]?CURRENCIES[currentCurrency].symbol:'₹';
+  const f=v=>{if(v>=10000000)return (v/10000000).toFixed(2)+'Cr';if(v>=100000)return (v/100000).toFixed(2)+'L';if(v>=1000)return (v/1000).toFixed(1)+'K';return Math.round(v).toLocaleString('en-IN');};
+  const net=d.sav;
+  tip.innerHTML=`<div style="font-weight:700;margin-bottom:8px;font-size:12.5px;color:var(--text)">${d.l}</div><div style="display:flex;flex-direction:column;gap:5px;font-size:12px"><div style="display:flex;justify-content:space-between;gap:14px"><span style="color:#4CAF7D">● Income</span><b>${sym}${f(d.inc)}</b></div><div style="display:flex;justify-content:space-between;gap:14px"><span style="color:#E05252">● Expenses</span><b>${sym}${f(d.exp)}</b></div><div style="border-top:1px solid rgba(255,255,255,.1);margin:3px 0"></div><div style="display:flex;justify-content:space-between;gap:14px"><span style="color:${net>=0?'#5B9BD5':'#E05252'}">● Net</span><b style="color:${net>=0?'#5B9BD5':'#E05252'}">${net>=0?'+':''}${sym}${f(Math.abs(net))}</b></div></div>`;
+  tip.style.display='block';
+  const card=document.getElementById('trend-card');
+  if(!card) return;
+  const cr=card.getBoundingClientRect();
+  let lft=e.clientX-cr.left+14, tp=e.clientY-cr.top-60;
+  if(lft+155>card.offsetWidth-8) lft=e.clientX-cr.left-170;
+  tip.style.left=lft+'px'; tip.style.top=Math.max(4,tp)+'px';
+}
+function hideTrendTip(){
+  const tip=document.getElementById('trend-tooltip'); if(tip) tip.style.display='none';
+}
+
 function renderDashAlloc() {
   const wrap = document.getElementById('dash-alloc-wrap');
   if(!wrap) return;
@@ -3771,12 +3832,16 @@ function renderDashboard() {
   const totalAssets = assetEntries.reduce((s,a)=>s+a.value,0);
   const totalLiabs  = liabs.reduce((s,a)=>s+a.value,0);
   const netWorth    = totalAssets - totalLiabs;
-  document.getElementById('d-networth').textContent = fmtK(netWorth);
+  const nwEl = document.getElementById('d-networth');
+  nwEl.textContent = fmtK(netWorth);
+  nwEl.style.color = netWorth < 0 ? 'var(--red)' : '';
   document.getElementById('d-income').textContent   = fmtK(income);
   document.getElementById('d-spend').textContent    = fmtK(spend);
   document.getElementById('d-saved').textContent    = fmtK(Math.max(0,saved));
   document.getElementById('d-sv-chg').textContent   = income>0?Math.round(saved/income*100)+'% rate':'Track income';
-  document.getElementById('d-nw-chg').textContent   = netWorth>=0?'Positive net worth':'⚠️ Negative';
+  const nwBadge = document.getElementById('d-nw-chg');
+  nwBadge.textContent = netWorth>=0 ? 'Positive net worth ✓' : '⚠️ Negative net worth';
+  nwBadge.className = 'kpi-badge ' + (netWorth>=0 ? 'up' : 'dn');
   // Recent txns
   document.getElementById('dash-recent').innerHTML = txns.slice(0,5).map(t=>`
     <div class="txn-item">
